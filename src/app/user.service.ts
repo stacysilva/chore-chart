@@ -8,6 +8,7 @@ import { MessageService } from './message.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
 
   constructor(private messageService: MessageService) { }
@@ -17,4 +18,11 @@ export class UserService {
     this.messageService.add('UserService: fetched users');
     return of(USERS);
   }
+
+  getUser(id: number): Observable<User> {
+    // TODO: send the message _after_ fetching the user
+    this.messageService.add(`UserService: fetched user id=${id}`);
+    return of(USERS.find(user => user.id === id));
+  }
+  
 }
